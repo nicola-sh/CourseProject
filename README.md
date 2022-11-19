@@ -12,10 +12,16 @@ Hiking microservice description...
         proto/
     ```
     2. add go mod, add module requirements and sums:
-        ```'go mod init example.com/m/v2' to initialize a v2 module```[создает новый модуль, инициализируя файл go.mod, описывающий модуль. Вначале он только добавит путь к модулю и версию Go в файл go.mod]
+        [создает новый модуль, инициализируя файл go.mod, описывающий модуль. 
+        Вначале он только добавит путь к модулю и версию Go в файл go.mod]
+        ```
+        'go mod init example.com/m/v2' to initialize a v2 module
+        ```
+
 
         to update\load modules:
-        ```go mod tidy```[обеспечивает соответствие файла go.mod исходному коду модуля]
+        [обеспечивает соответствие файла go.mod исходному коду модуля]
+        ```go mod tidy```
 
     3. install protoc and rpc: [grpc.io](https://grpc.io/)
     ```
@@ -25,7 +31,12 @@ Hiking microservice description...
 
 ### useful
 
-        ```go clean -modcache```[Эта команда используется для очистки кеша модов, который хранится в $GOPATH/pkg/mod. Эта команда используется для удаления установленных пакетов. Флаг -modcache удаляет весь кеш загрузки модуля, включая распакованный исходный код версий зависимостей.]
+        [Эта команда используется для очистки кеша модов, 
+        который хранится в $GOPATH/pkg/mod. 
+        Эта команда используется для удаления установленных пакетов. 
+        Флаг -modcache удаляет весь кеш загрузки модуля, 
+        включая распакованный исходный код версий зависимостей.]
+        ```go clean -modcache```
 
 #### LeetCode Tasks
 
