@@ -29,7 +29,65 @@ $ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
 $ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 ```
 
-### useful
+### docker
+load image postgres:latest
+create container postgres:latest
+
+
+### Migration
+go db postgres migrate to db/migration. It's create init_shema up and down:
+```console
+migrate create -ext sql -dir db\migration -seq init_shema
+```
+then copy from .sql to .up
+and
+DROP TABLE IF EXISTS nameTable; to .down
+
+start migration with working docker postgresql:
+```console
+docker run --name hike-postgres -p 5432:5432 -e POSTGRES_USER=root -e PASSWORD=root -d postgres:latest
+docker ps
+docker ps -a
+docker stop name_container
+```
+
+доступ к оболочке:
+```console
+docker exec -it name_container /bin/sh
+```
+внутри оболочки:
+```console
+pwd
+ls -l
+createdb --username=user_name --owner=owner_name db_name [createdb --username=root --owner=root DoHike]
+psql DoHike[check that's db working]
+dropdb db_name[to delete db]
+exit
+```
+также можно делать все через докер(в т.ч. создать БД):
+```console
+docker exec -it hike-postgres createdb --username=root --owner=root dohike
+docker exec -it hike-postgres psql dohike
+makefile migrate
+```
+
+
+use sqlc crud [sqlc.dev]<https://sqlc.dev/>
+-install sqlc:
+```console
+go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
+```
+-generate go code from sql
+
+```console
+sqlc init
+sqlc generate
+```
+
+-sqlc configure
+
+
+##### useful
 
 ```console
 go clean -modcache
@@ -41,7 +99,9 @@ go clean -modcache
 включая распакованный исходный код версий зависимостей.
 
 
-#### LeetCode Tasks
+
+
+## LeetCode Tasks
 
 [LeetCode Task 1 - 3sum](https://leetcode.com/problems/3sum)
 
