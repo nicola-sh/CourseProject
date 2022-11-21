@@ -3,6 +3,8 @@ package hike;
 
 import "google/protobuf/timestamp.proto";
 
+option gp_package = "github.com/nicola-sh/CourseProject/tree/main/Hike/pb";
+
 message HelloRequest{
     string name = 1
 }
