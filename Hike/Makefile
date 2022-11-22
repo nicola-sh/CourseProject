@@ -8,11 +8,12 @@ dropdb:
 	docker exec -it hike-postgres dropdb dohike
 
 migrateup:
-	migrate -path hike/db/migration -database "postgresql://root:root@localhost:5432/dohike?sslmode=disable" -verbose up
+	migrate -path db/migration -database "postgresql://root:root@localhost:5432/dohike?sslmode=disable" -verbose up
 
 migratedown:
-	migrate -path hike/db/migration -database "postgresql://root:root@localhost:5432/dohike?sslmode=disable" -verbose down
+	migrate -path db/migration -database "postgresql://root:root@localhost:5432/dohike?sslmode=disable" -verbose down
+
 sqlc:
-	sqlc generate
+	docker run --rm -v ${CURDIR}:/src -w /src kjconroy/sqlc generate
 
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc
