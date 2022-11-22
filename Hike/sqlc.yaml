@@ -6,4 +6,4 @@ sql:
     gen:
       go:
         package: "hike"
-        out: "hike"
+        out: "sqlc"
