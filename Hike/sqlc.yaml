@@ -5,5 +5,5 @@ sql:
     schema: "./db/migration/"
     gen:
       go:
-        package: "hike"
+        package: "hikedb"
         out: "sqlc"

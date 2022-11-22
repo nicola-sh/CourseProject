@@ -3,7 +3,7 @@
 //   sqlc v1.16.0
 // source: user.sql
 
-package hike
+package hikedb
 
 import (
 	"context"
