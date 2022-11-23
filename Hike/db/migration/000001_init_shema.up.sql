@@ -3,10 +3,10 @@ CREATE TABLE "users" (
   "first_name" varchar NOT NULL,
   "last_name" varchar NOT NULL,
   "age" int NOT NULL,
-  "emal" varchar NOT NULL,
+  "email" varchar NOT NULL,
   "password" varchar NOT NULL,
   "role" varchar NOT NULL,
-  "createdAt" timestamp NOT NULL,
+  "createdAt" timestamptz NOT NULL DEFAULT (now()),
   "updatedAt" timestamp
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE "routes" (
   "destination" float NOT NULL,
   "height" float NOT NULL,
   "level" varchar NOT NULL,
-  "createdAt" timestamp NOT NULL,
+  "createdAt" timestamptz NOT NULL DEFAULT (now()),
   "updatedAt" timestamp
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE "comments" (
   "postId" int NOT NULL,
   "name" varchar NOT NULL,
   "body" text NOT NULL,
-  "createdAt" timestamp NOT NULL,
+  "createdAt" timestamptz NOT NULL DEFAULT (now()),
   "updatedAt" timestamp
 );
 
