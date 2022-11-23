@@ -71,8 +71,9 @@ docker exec -it hike-postgres psql dohike
 makefile migrate
 ```
 
+###### sqlc
 
-use sqlc crud [sqlc.dev]<https://sqlc.dev/>
+use sqlc crud [sqlc.dev](https://sqlc.dev/)
 -install sqlc:
 ```console
 go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
@@ -86,8 +87,23 @@ sqlc generate
 
 -sqlc configure
 
+[sqlc info](https://github.com/kyleconroy/sqlc/blob/v1.16.0/docs/tutorials/getting-started-postgresql.md)
+edit sqlc.yaml
+make sqlc
+
+###### pq lib + testify for unit test
+
+go get github.com/lib/pq
+
+
+###### Unit Tests
+
+*test.go
+
 
 ##### useful
+
+change go env -w GO111MODULE=auto to go env -w GO111MODULE=off
 
 ```console
 go clean -modcache
