@@ -14,20 +14,20 @@ INSERT INTO users (
   first_name,
   last_name,
   age,
-  emal,
+  email,
   password,
   role
 ) VALUES (
   $1, $2, $3, $4, $5, $6
 )
-RETURNING id, first_name, last_name, age, emal, password, role, "createdAt", "updatedAt"
+RETURNING id, first_name, last_name, age, email, password, role, "createdAt", "updatedAt"
 `
 
 type CreateUserParams struct {
 	FirstName string
 	LastName  string
 	Age       int32
-	Emal      string
+	Email     string
 	Password  string
 	Role      string
 }
@@ -37,7 +37,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		arg.FirstName,
 		arg.LastName,
 		arg.Age,
-		arg.Emal,
+		arg.Email,
 		arg.Password,
 		arg.Role,
 	)
@@ -47,7 +47,115 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.FirstName,
 		&i.LastName,
 		&i.Age,
-		&i.Emal,
+		&i.Email,
+		&i.Password,
+		&i.Role,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const deleteUser = `-- name: DeleteUser :exec
+DELETE FROM users
+WHERE id = $1
+`
+
+func (q *Queries) DeleteUser(ctx context.Context, id int32) error {
+	_, err := q.db.ExecContext(ctx, deleteUser, id)
+	return err
+}
+
+const getUser = `-- name: GetUser :one
+SELECT id, first_name, last_name, age, email, password, role, "createdAt", "updatedAt" FROM users
+WHERE id = $1 LIMIT 1
+`
+
+func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUser, id)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.FirstName,
+		&i.LastName,
+		&i.Age,
+		&i.Email,
+		&i.Password,
+		&i.Role,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const listUsers = `-- name: ListUsers :many
+SELECT id, first_name, last_name, age, email, password, role, "createdAt", "updatedAt" FROM users
+ORDER BY id
+LIMIT $1
+OFFSET $2
+`
+
+type ListUsersParams struct {
+	Limit  int32
+	Offset int32
+}
+
+func (q *Queries) ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error) {
+	rows, err := q.db.QueryContext(ctx, listUsers, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []User
+	for rows.Next() {
+		var i User
+		if err := rows.Scan(
+			&i.ID,
+			&i.FirstName,
+			&i.LastName,
+			&i.Age,
+			&i.Email,
+			&i.Password,
+			&i.Role,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const updateUser = `-- name: UpdateUser :one
+UPDATE users
+SET email = $2,
+    password = $3
+WHERE id = $1
+RETURNING id, first_name, last_name, age, email, password, role, "createdAt", "updatedAt"
+`
+
+type UpdateUserParams struct {
+	ID       int32
+	Email    string
+	Password string
+}
+
+func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
+	row := q.db.QueryRowContext(ctx, updateUser, arg.ID, arg.Email, arg.Password)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.FirstName,
+		&i.LastName,
+		&i.Age,
+		&i.Email,
 		&i.Password,
 		&i.Role,
 		&i.CreatedAt,
