@@ -1,18 +1,18 @@
 syntax = "proto3";
-package hike;
+package hikepb;
 
 import "google/protobuf/timestamp.proto";
 
 option gp_package = "github.com/nicola-sh/CourseProject/tree/main/Hike/pb";
 
-message HelloRequest{
+message User{
     string name = 1
 }
 
-message HelloResponse{
+message UserResponse{
     string greet = 1
 }
 
-service WelcomeService {
-    rpc Hello(HelloRequest) returns (HelloResponse)
+service UserService {
+    rpc User(UserRequest) returns (UserResponse)
 }
