@@ -34,14 +34,9 @@ func RandomString(n int) string {
 	return sb.String()
 }
 
-// RandomUserFirstName generates a random user first name
-func RandomUserFirstName() string {
+// RandomUserName generates a random user first name
+func RandomUserName() string {
 	return RandomString(8)
-}
-
-// RandomUserLastName generates a random user last name
-func RandomUserLastName() string {
-	return RandomString(7)
 }
 
 // RandomAge generates a random user age from 14 to 85
