@@ -11,31 +11,28 @@ import (
 
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (
-  first_name,
-  last_name,
+  username,
   age,
   email,
   password,
   role
 ) VALUES (
-  $1, $2, $3, $4, $5, $6
+  $1, $2, $3, $4, $5
 )
-RETURNING id, first_name, last_name, age, email, password, role, "createdAt", "updatedAt"
+RETURNING id, username, age, email, password, role, "createdAt", "updatedAt"
 `
 
 type CreateUserParams struct {
-	FirstName string
-	LastName  string
-	Age       int32
-	Email     string
-	Password  string
-	Role      string
+	Username string
+	Age      int32
+	Email    string
+	Password string
+	Role     string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
 	row := q.db.QueryRowContext(ctx, createUser,
-		arg.FirstName,
-		arg.LastName,
+		arg.Username,
 		arg.Age,
 		arg.Email,
 		arg.Password,
@@ -44,8 +41,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.FirstName,
-		&i.LastName,
+		&i.Username,
 		&i.Age,
 		&i.Email,
 		&i.Password,
@@ -67,7 +63,7 @@ func (q *Queries) DeleteUser(ctx context.Context, id int32) error {
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, first_name, last_name, age, email, password, role, "createdAt", "updatedAt" FROM users
+SELECT id, username, age, email, password, role, "createdAt", "updatedAt" FROM users
 WHERE id = $1 LIMIT 1
 `
 
@@ -76,8 +72,7 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.FirstName,
-		&i.LastName,
+		&i.Username,
 		&i.Age,
 		&i.Email,
 		&i.Password,
@@ -89,7 +84,7 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
 }
 
 const listUsers = `-- name: ListUsers :many
-SELECT id, first_name, last_name, age, email, password, role, "createdAt", "updatedAt" FROM users
+SELECT id, username, age, email, password, role, "createdAt", "updatedAt" FROM users
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -111,8 +106,7 @@ func (q *Queries) ListUsers(ctx context.Context, arg ListUsersParams) ([]User, e
 		var i User
 		if err := rows.Scan(
 			&i.ID,
-			&i.FirstName,
-			&i.LastName,
+			&i.Username,
 			&i.Age,
 			&i.Email,
 			&i.Password,
@@ -138,7 +132,7 @@ UPDATE users
 SET email = $2,
     password = $3
 WHERE id = $1
-RETURNING id, first_name, last_name, age, email, password, role, "createdAt", "updatedAt"
+RETURNING id, username, age, email, password, role, "createdAt", "updatedAt"
 `
 
 type UpdateUserParams struct {
@@ -152,8 +146,7 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.FirstName,
-		&i.LastName,
+		&i.Username,
 		&i.Age,
 		&i.Email,
 		&i.Password,

@@ -33,8 +33,7 @@ type Route struct {
 
 type User struct {
 	ID        int32
-	FirstName string
-	LastName  string
+	Username  string
 	Age       int32
 	Email     string
 	Password  string

@@ -12,12 +12,11 @@ import (
 
 func createRandomUser(t *testing.T) User {
 	arg := CreateUserParams{
-		FirstName: util.RandomUserFirstName(),
-		LastName:  util.RandomUserLastName(),
-		Age:       util.RandomAge(),
-		Email:     util.RandomEmail(),
-		Password:  util.RandomPassword(),
-		Role:      util.RandomRole(),
+		Username: util.RandomUserFirstName(),
+		Age:      util.RandomAge(),
+		Email:    util.RandomEmail(),
+		Password: util.RandomPassword(),
+		Role:     util.RandomRole(),
 	}
 
 	user, err := testQueries.CreateUser(context.Background(), arg)
@@ -25,8 +24,7 @@ func createRandomUser(t *testing.T) User {
 	require.NoError(t, err)
 	require.NotEmpty(t, user)
 
-	require.Equal(t, arg.FirstName, user.FirstName)
-	require.Equal(t, arg.LastName, user.LastName)
+	require.Equal(t, arg.Username, user.Username)
 	require.Equal(t, arg.Age, user.Age)
 	require.Equal(t, arg.Email, user.Email)
 	require.Equal(t, arg.Password, user.Password)
@@ -48,8 +46,7 @@ func TestGetUser(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, user2)
 
-	require.Equal(t, user1.FirstName, user2.FirstName)
-	require.Equal(t, user1.LastName, user2.LastName)
+	require.Equal(t, user1.Username, user2.Username)
 	require.Equal(t, user1.Age, user2.Age)
 	require.Equal(t, user1.Email, user2.Email)
 	require.Equal(t, user1.Password, user2.Password)
@@ -76,8 +73,7 @@ func TestUpdateUser(t *testing.T) {
 	require.NotEmpty(t, user2)
 
 	require.Equal(t, user1.ID, user2.ID)
-	require.Equal(t, user1.FirstName, user2.FirstName)
-	require.Equal(t, user1.LastName, user2.LastName)
+	require.Equal(t, user1.Username, user2.Username)
 	require.Equal(t, user1.Age, user2.Age)
 	require.Equal(t, arg.Email, user2.Email)
 	require.Equal(t, arg.Password, user2.Password)
