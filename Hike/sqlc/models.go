@@ -10,17 +10,17 @@ import (
 )
 
 type Comment struct {
-	ID        int32
-	PostId    int32
-	Name      string
-	Body      string
-	CreatedAt time.Time
-	UpdatedAt sql.NullTime
+	ID          int32
+	PostID      int32
+	UserID      int32
+	CommentText string
+	CreatedAt   time.Time
+	UpdatedAt   sql.NullTime
 }
 
 type Route struct {
 	ID          int32
-	UserId      int32
+	UserID      int32
 	Title       string
 	Description string
 	Location    string
