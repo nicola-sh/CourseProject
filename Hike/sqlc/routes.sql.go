@@ -25,13 +25,13 @@ RETURNING id, user_id, title, description, location, destination, height, level,
 `
 
 type CreateRouteParams struct {
-	UserID      int32
-	Title       string
-	Description string
-	Location    string
-	Destination float64
-	Height      float64
-	Level       string
+	UserID      int32   `json:"user_id"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Location    string  `json:"location"`
+	Destination float64 `json:"destination"`
+	Height      float64 `json:"height"`
+	Level       string  `json:"level"`
 }
 
 func (q *Queries) CreateRoute(ctx context.Context, arg CreateRouteParams) (Route, error) {
@@ -101,8 +101,8 @@ OFFSET $2
 `
 
 type ListRoutesParams struct {
-	Limit  int32
-	Offset int32
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
 }
 
 func (q *Queries) ListRoutes(ctx context.Context, arg ListRoutesParams) ([]Route, error) {
@@ -153,14 +153,14 @@ RETURNING id, user_id, title, description, location, destination, height, level,
 `
 
 type UpdateRouteParams struct {
-	ID          int32
-	UserID      int32
-	Title       string
-	Description string
-	Location    string
-	Destination float64
-	Height      float64
-	Level       string
+	ID          int32   `json:"id"`
+	UserID      int32   `json:"user_id"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Location    string  `json:"location"`
+	Destination float64 `json:"destination"`
+	Height      float64 `json:"height"`
+	Level       string  `json:"level"`
 }
 
 func (q *Queries) UpdateRoute(ctx context.Context, arg UpdateRouteParams) (Route, error) {

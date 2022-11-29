@@ -30,8 +30,8 @@ func (store *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
 	q := New(tx)
 	err = fn(q)
 	if err != nil {
-		if rberr := tx.Rollback(); rberr != nil {
-			return fmt.Errorf("tx err: %v, rb err: &v", err, rberr)
+		if rbErr := tx.Rollback(); rbErr != nil {
+			return fmt.Errorf("tx err: %v, rb err: %v", err, rbErr)
 		}
 		return err
 	}
@@ -48,9 +48,11 @@ func (store *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
 
 // // is the result of the transfer transaction
 // type TransferTxResult struct {
-// 	Transfer Transfer
-// 	FromUser
-// 	amount
+// 	Transfer    Transfer
+// 	FromAccount Account
+// 	ToAccount   Account
+// 	FromEntry   Entry
+// 	ToEntry     Entry
 // }
 
 // // from 1 user to 2 user

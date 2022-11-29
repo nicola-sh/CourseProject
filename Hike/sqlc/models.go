@@ -10,34 +10,34 @@ import (
 )
 
 type Comment struct {
-	ID          int32
-	PostID      int32
-	UserID      int32
-	CommentText string
-	CreatedAt   time.Time
-	UpdatedAt   sql.NullTime
+	ID          int32        `json:"id"`
+	PostID      int32        `json:"post_id"`
+	UserID      int32        `json:"user_id"`
+	CommentText string       `json:"comment_text"`
+	CreatedAt   time.Time    `json:"createdAt"`
+	UpdatedAt   sql.NullTime `json:"updatedAt"`
 }
 
 type Route struct {
-	ID          int32
-	UserID      int32
-	Title       string
-	Description string
-	Location    string
-	Destination float64
-	Height      float64
-	Level       string
-	CreatedAt   time.Time
-	UpdatedAt   sql.NullTime
+	ID          int32        `json:"id"`
+	UserID      int32        `json:"user_id"`
+	Title       string       `json:"title"`
+	Description string       `json:"description"`
+	Location    string       `json:"location"`
+	Destination float64      `json:"destination"`
+	Height      float64      `json:"height"`
+	Level       string       `json:"level"`
+	CreatedAt   time.Time    `json:"createdAt"`
+	UpdatedAt   sql.NullTime `json:"updatedAt"`
 }
 
 type User struct {
-	ID        int32
-	Username  string
-	Age       int32
-	Email     string
-	Password  string
-	Role      string
-	CreatedAt time.Time
-	UpdatedAt sql.NullTime
+	ID        int32        `json:"id"`
+	Username  string       `json:"username"`
+	Age       int32        `json:"age"`
+	Email     string       `json:"email"`
+	Password  string       `json:"password"`
+	Role      string       `json:"role"`
+	CreatedAt time.Time    `json:"createdAt"`
+	UpdatedAt sql.NullTime `json:"updatedAt"`
 }

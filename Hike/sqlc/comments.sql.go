@@ -21,9 +21,9 @@ RETURNING id, post_id, user_id, comment_text, "createdAt", "updatedAt"
 `
 
 type CreateCommentParams struct {
-	PostID      int32
-	UserID      int32
-	CommentText string
+	PostID      int32  `json:"post_id"`
+	UserID      int32  `json:"user_id"`
+	CommentText string `json:"comment_text"`
 }
 
 func (q *Queries) CreateComment(ctx context.Context, arg CreateCommentParams) (Comment, error) {
@@ -77,8 +77,8 @@ OFFSET $2
 `
 
 type ListCommentsParams struct {
-	Limit  int32
-	Offset int32
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
 }
 
 func (q *Queries) ListComments(ctx context.Context, arg ListCommentsParams) ([]Comment, error) {
@@ -119,8 +119,8 @@ RETURNING id, post_id, user_id, comment_text, "createdAt", "updatedAt"
 `
 
 type UpdateCommentParams struct {
-	ID          int32
-	CommentText string
+	ID          int32  `json:"id"`
+	CommentText string `json:"comment_text"`
 }
 
 func (q *Queries) UpdateComment(ctx context.Context, arg UpdateCommentParams) (Comment, error) {
