@@ -16,7 +16,7 @@ message UserResponse{
 	string email = 3;
     string password = 4;
 	string role = 5;
-    google.protobuf.Timestamp 
+    // google.protobuf.Timestamp 
 }
 
 service UserService {
