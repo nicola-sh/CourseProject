@@ -8,11 +8,11 @@ import (
 )
 
 type createUserRequest struct {
-	Username string `json:"username", binding:"required"`
-	Age      int32  `json:"age", binding:"required"`
-	Email    string `json:"email", binding:"required"`
-	Password string `json:"password", binding:"required"`
-	Role     string `json:"role", binding:"required", oneof=admin photographer hiker`
+	Username string `json:"username" binding:"required"`
+	Age      int32  `json:"age" binding:"required"`
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required"`
+	Role     string `json:"role" binding:"required, oneof=admin photographer hiker"`
 }
 
 func (server *Server) createUser(ctx *gin.Context) {

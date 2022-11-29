@@ -14,7 +14,7 @@ type createRouteRequest struct {
 	Location    string  `json:"location"`
 	Destination float64 `json:"destination"`
 	Height      float64 `json:"height"`
-	Level       string  `json:"level", binding:"required", oneof=low middle high`
+	Level       string  `json:"level" binding:"required, oneof= low middle high"`
 }
 
 func (server *Server) createRoute(ctx *gin.Context) {
