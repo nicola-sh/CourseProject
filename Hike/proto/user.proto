@@ -3,10 +3,10 @@ package hikepb;
 
 import "google/protobuf/timestamp.proto";
 
-option gp_package = "github.com/nicola-sh/CourseProject/tree/main/Hike/pb";
+option gp_package = "github.com/nicola-sh/CourseProject/Hike/pb";
 
 message User{
-    string name = 1
+    string name = 1;
 }
 
 message UserResponse{

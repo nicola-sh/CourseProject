@@ -5,7 +5,7 @@ CREATE TABLE "users" (
   "email" varchar NOT NULL,
   "password" varchar NOT NULL,
   "role" varchar NOT NULL,
-  "createdAt" timestamp NOT NULL,
+  "createdAt" timestamptz NOT NULL DEFAULT (now()),
   "updatedAt" timestamp
 );
 
