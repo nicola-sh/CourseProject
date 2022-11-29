@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nicola-sh/CourseProject/tree/main/Hike/util"
+	"github.com/nicola-sh/CourseProject/Hike/util"
 	"github.com/stretchr/testify/require"
 )
 
