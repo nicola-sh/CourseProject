@@ -1,24 +1,24 @@
-syntax = "proto3";
-package hikepb;
+// syntax = "proto3";
+// package hikepb;
 
-import "google/protobuf/timestamp.proto";
+// import "google/protobuf/timestamp.proto";
 
-option gp_package = "github.com/nicola-sh/CourseProject/Hike/pb";
+// option gp_package = "github.com/nicola-sh/CourseProject/Hike/pb";
 
-message User{
-    string name = 1;
-}
+// message User{
+//     string name = 1;
+// }
 
-message UserResponse{
+// message UserResponse{
 
-    string username = 1;
-    int age = 2;
-	string email = 3;
-    string password = 4;
-	string role = 5;
-    // google.protobuf.Timestamp 
-}
+//     string username = 1;
+//     int age = 2;
+// 	string email = 3;
+//     string password = 4;
+// 	string role = 5;
+//     // google.protobuf.Timestamp 
+// }
 
-service UserService {
-    rpc User(UserRequest) returns (UserResponse)
-}
+// service UserService {
+//     rpc User(UserRequest) returns (UserResponse)
+// }
