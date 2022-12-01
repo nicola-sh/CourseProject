@@ -7,11 +7,7 @@ import (
 	"testing"
 
 	_ "github.com/lib/pq"
-)
-
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://root:root@localhost:5432/dohike?sslmode=disable"
+	"github.com/nicola-sh/CourseProject/Hike/util"
 )
 
 var testQueries *Queries
@@ -19,8 +15,13 @@ var testDB *sql.DB
 
 // db connecting
 func TestMain(m *testing.M) {
-	conn, err := sql.Open(dbDriver, dbSource)
-	testDB, err = sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("Can't load config:", err)
+	}
+
+	conn, err := sql.Open(config.DBDriver, config.DBSource)
+	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("Can't connect to DB:", err)
 	}

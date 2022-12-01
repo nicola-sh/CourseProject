@@ -6,11 +6,13 @@ import (
 	"time"
 )
 
-const lowerCharSet = "abcdedfghijklmnopqrst"
-const upperCharSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const specialCharSet = "!@#$%&*"
-const numberSet = "0123456789"
-const allCharSet = lowerCharSet + upperCharSet + specialCharSet + numberSet
+const (
+	lowerCharSet   = "abcdedfghijklmnopqrst"
+	upperCharSet   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	specialCharSet = "!@#$%&*"
+	numberSet      = "0123456789"
+	allCharSet     = lowerCharSet + upperCharSet + specialCharSet + numberSet
+)
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
