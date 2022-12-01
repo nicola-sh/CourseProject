@@ -111,7 +111,7 @@ func (q *Queries) ListRoutes(ctx context.Context, arg ListRoutesParams) ([]Route
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Route
+	items := []Route{}
 	for rows.Next() {
 		var i Route
 		if err := rows.Scan(
