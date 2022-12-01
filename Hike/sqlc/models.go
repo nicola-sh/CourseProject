@@ -20,7 +20,7 @@ type Comment struct {
 
 type Route struct {
 	ID          int32        `json:"id"`
-	UserID      int32        `json:"user_id"`
+	AdminID     int32        `json:"admin_id"`
 	Title       string       `json:"title"`
 	Description string       `json:"description"`
 	Location    string       `json:"location"`
@@ -32,12 +32,12 @@ type Route struct {
 }
 
 type User struct {
-	ID        int32        `json:"id"`
-	Username  string       `json:"username"`
-	Age       int32        `json:"age"`
-	Email     string       `json:"email"`
-	Password  string       `json:"password"`
-	Role      string       `json:"role"`
-	CreatedAt time.Time    `json:"createdAt"`
-	UpdatedAt sql.NullTime `json:"updatedAt"`
+	ID                int32     `json:"id"`
+	Username          string    `json:"username"`
+	Age               int32     `json:"age"`
+	Email             string    `json:"email"`
+	Password          string    `json:"password"`
+	Role              string    `json:"role"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
+	CreatedAt         time.Time `json:"createdAt"`
 }

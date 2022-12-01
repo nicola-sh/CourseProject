@@ -11,7 +11,7 @@ import (
 
 const createRoute = `-- name: CreateRoute :one
 INSERT INTO routes (
-  user_id,
+  admin_id,
   title,
   description,
   location,
@@ -21,11 +21,11 @@ INSERT INTO routes (
 ) VALUES (
   $1, $2, $3, $4, $5, $6, $7
 )
-RETURNING id, user_id, title, description, location, destination, height, level, "createdAt", "updatedAt"
+RETURNING id, admin_id, title, description, location, destination, height, level, "createdAt", "updatedAt"
 `
 
 type CreateRouteParams struct {
-	UserID      int32   `json:"user_id"`
+	AdminID     int32   `json:"admin_id"`
 	Title       string  `json:"title"`
 	Description string  `json:"description"`
 	Location    string  `json:"location"`
@@ -36,7 +36,7 @@ type CreateRouteParams struct {
 
 func (q *Queries) CreateRoute(ctx context.Context, arg CreateRouteParams) (Route, error) {
 	row := q.db.QueryRowContext(ctx, createRoute,
-		arg.UserID,
+		arg.AdminID,
 		arg.Title,
 		arg.Description,
 		arg.Location,
@@ -47,7 +47,7 @@ func (q *Queries) CreateRoute(ctx context.Context, arg CreateRouteParams) (Route
 	var i Route
 	err := row.Scan(
 		&i.ID,
-		&i.UserID,
+		&i.AdminID,
 		&i.Title,
 		&i.Description,
 		&i.Location,
@@ -71,7 +71,7 @@ func (q *Queries) DeleteRoute(ctx context.Context, id int32) error {
 }
 
 const getRoute = `-- name: GetRoute :one
-SELECT id, user_id, title, description, location, destination, height, level, "createdAt", "updatedAt" FROM routes
+SELECT id, admin_id, title, description, location, destination, height, level, "createdAt", "updatedAt" FROM routes
 WHERE id = $1 LIMIT 1
 `
 
@@ -80,7 +80,7 @@ func (q *Queries) GetRoute(ctx context.Context, id int32) (Route, error) {
 	var i Route
 	err := row.Scan(
 		&i.ID,
-		&i.UserID,
+		&i.AdminID,
 		&i.Title,
 		&i.Description,
 		&i.Location,
@@ -94,7 +94,7 @@ func (q *Queries) GetRoute(ctx context.Context, id int32) (Route, error) {
 }
 
 const listRoutes = `-- name: ListRoutes :many
-SELECT id, user_id, title, description, location, destination, height, level, "createdAt", "updatedAt" FROM routes
+SELECT id, admin_id, title, description, location, destination, height, level, "createdAt", "updatedAt" FROM routes
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -116,7 +116,7 @@ func (q *Queries) ListRoutes(ctx context.Context, arg ListRoutesParams) ([]Route
 		var i Route
 		if err := rows.Scan(
 			&i.ID,
-			&i.UserID,
+			&i.AdminID,
 			&i.Title,
 			&i.Description,
 			&i.Location,
@@ -141,7 +141,7 @@ func (q *Queries) ListRoutes(ctx context.Context, arg ListRoutesParams) ([]Route
 
 const updateRoute = `-- name: UpdateRoute :one
 UPDATE routes
-SET user_id = $2,
+SET admin_id = $2,
     title = $3,
     description = $4,
     location = $5,
@@ -149,12 +149,12 @@ SET user_id = $2,
     height = $7,
     level = $8
 WHERE id = $1
-RETURNING id, user_id, title, description, location, destination, height, level, "createdAt", "updatedAt"
+RETURNING id, admin_id, title, description, location, destination, height, level, "createdAt", "updatedAt"
 `
 
 type UpdateRouteParams struct {
 	ID          int32   `json:"id"`
-	UserID      int32   `json:"user_id"`
+	AdminID     int32   `json:"admin_id"`
 	Title       string  `json:"title"`
 	Description string  `json:"description"`
 	Location    string  `json:"location"`
@@ -166,7 +166,7 @@ type UpdateRouteParams struct {
 func (q *Queries) UpdateRoute(ctx context.Context, arg UpdateRouteParams) (Route, error) {
 	row := q.db.QueryRowContext(ctx, updateRoute,
 		arg.ID,
-		arg.UserID,
+		arg.AdminID,
 		arg.Title,
 		arg.Description,
 		arg.Location,
@@ -177,7 +177,7 @@ func (q *Queries) UpdateRoute(ctx context.Context, arg UpdateRouteParams) (Route
 	var i Route
 	err := row.Scan(
 		&i.ID,
-		&i.UserID,
+		&i.AdminID,
 		&i.Title,
 		&i.Description,
 		&i.Location,

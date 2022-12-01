@@ -19,7 +19,7 @@ INSERT INTO users (
 ) VALUES (
   $1, $2, $3, $4, $5
 )
-RETURNING id, username, age, email, password, role, "createdAt", "updatedAt"
+RETURNING id, username, age, email, password, role, password_changed_at, "createdAt"
 `
 
 type CreateUserParams struct {
@@ -46,8 +46,8 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.Email,
 		&i.Password,
 		&i.Role,
+		&i.PasswordChangedAt,
 		&i.CreatedAt,
-		&i.UpdatedAt,
 	)
 	return i, err
 }
@@ -63,7 +63,7 @@ func (q *Queries) DeleteUser(ctx context.Context, id int32) error {
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, username, age, email, password, role, "createdAt", "updatedAt" FROM users
+SELECT id, username, age, email, password, role, password_changed_at, "createdAt" FROM users
 WHERE id = $1 LIMIT 1
 `
 
@@ -77,14 +77,14 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
 		&i.Email,
 		&i.Password,
 		&i.Role,
+		&i.PasswordChangedAt,
 		&i.CreatedAt,
-		&i.UpdatedAt,
 	)
 	return i, err
 }
 
 const listUsers = `-- name: ListUsers :many
-SELECT id, username, age, email, password, role, "createdAt", "updatedAt" FROM users
+SELECT id, username, age, email, password, role, password_changed_at, "createdAt" FROM users
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -111,8 +111,8 @@ func (q *Queries) ListUsers(ctx context.Context, arg ListUsersParams) ([]User, e
 			&i.Email,
 			&i.Password,
 			&i.Role,
+			&i.PasswordChangedAt,
 			&i.CreatedAt,
-			&i.UpdatedAt,
 		); err != nil {
 			return nil, err
 		}
@@ -132,7 +132,7 @@ UPDATE users
 SET email = $2,
     password = $3
 WHERE id = $1
-RETURNING id, username, age, email, password, role, "createdAt", "updatedAt"
+RETURNING id, username, age, email, password, role, password_changed_at, "createdAt"
 `
 
 type UpdateUserParams struct {
@@ -151,8 +151,8 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 		&i.Email,
 		&i.Password,
 		&i.Role,
+		&i.PasswordChangedAt,
 		&i.CreatedAt,
-		&i.UpdatedAt,
 	)
 	return i, err
 }

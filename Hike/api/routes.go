@@ -25,7 +25,7 @@ func (server *Server) createRoute(ctx *gin.Context) {
 	}
 
 	arg := db.CreateRouteParams{
-		UserID:      req.UserID,
+		AdminID:     req.UserID,
 		Title:       req.Title,
 		Description: req.Description,
 		Location:    req.Location,

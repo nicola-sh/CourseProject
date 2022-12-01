@@ -10,7 +10,7 @@ OFFSET $2;
 
 -- name: CreateRoute :one
 INSERT INTO routes (
-  user_id,
+  admin_id,
   title,
   description,
   location,
@@ -24,7 +24,7 @@ RETURNING *;
 
 -- name: UpdateRoute :one
 UPDATE routes
-SET user_id = $2,
+SET admin_id = $2,
     title = $3,
     description = $4,
     location = $5,
