@@ -22,11 +22,11 @@ func (server *Server) createComment(ctx *gin.Context) {
 		CommentText: req.CommentText,
 	}
 
-	account, err := server.store.CreateComment(ctx, arg)
+	comment, err := server.store.CreateComment(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
-	ctx.JSON(http.StatusOK, account)
+	ctx.JSON(http.StatusOK, comment)
 }

@@ -34,11 +34,11 @@ func (server *Server) createRoute(ctx *gin.Context) {
 		Level:       req.Level,
 	}
 
-	account, err := server.store.CreateRoute(ctx, arg)
+	route, err := server.store.CreateRoute(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
-	ctx.JSON(http.StatusOK, account)
+	ctx.JSON(http.StatusOK, route)
 }
