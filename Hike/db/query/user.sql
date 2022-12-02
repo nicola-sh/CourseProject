@@ -13,7 +13,7 @@ INSERT INTO users (
   username,
   age,
   email,
-  password,
+  hashed_password,
   role
 ) VALUES (
   $1, $2, $3, $4, $5
@@ -23,7 +23,7 @@ RETURNING *;
 -- name: UpdateUser :one
 UPDATE users
 SET email = $2,
-    password = $3
+    hashed_password = $3
 WHERE id = $1
 RETURNING *;
 

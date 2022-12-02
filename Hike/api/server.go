@@ -1,19 +1,35 @@
 package api
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 
 	db "github.com/nicola-sh/CourseProject/Hike/sqlc"
+	"github.com/nicola-sh/CourseProject/Hike/token"
+	"github.com/nicola-sh/CourseProject/Hike/util"
 )
 
 // Server serves HTTP requests for hike service
 type Server struct {
-	store  *db.Store
-	router *gin.Engine
+	config     util.Config
+	tokenMaker token.Maker
+	store      *db.Store
+	router     *gin.Engine
 }
 
-func NewServer(store *db.Store) *Server {
-	server := &Server{store: store}
+func NewServer(config util.Config, store *db.Store) (*Server, error) {
+	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	if err != nil {
+		return nil, fmt.Errorf("Can't create token maker: %w", err)
+	}
+
+	server := &Server{
+		config:     config,
+		store:      store,
+		tokenMaker: tokenMaker,
+	}
+
 	router := gin.Default()
 
 	router.POST("/users", server.createUser)
@@ -21,7 +37,7 @@ func NewServer(store *db.Store) *Server {
 	router.GET("/users", server.listUser)
 
 	server.router = router
-	return server
+	return server, nil
 }
 
 // Start runs the HTTP server on a specific address
